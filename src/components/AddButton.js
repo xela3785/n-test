@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import Modal from "react-modal/lib/components/Modal";
 
-const AddButton = () => {
+const AddButton = (props) => {
     const [open, setOpen] = useState(false)
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
@@ -16,6 +16,13 @@ const AddButton = () => {
             data: {name, surname, telephone}
         })
         handleClose()
+        setTimeout(() => {
+            axios.get('http://178.128.196.163:3000/api/records')
+            .then(res => {
+                let newData = res.data
+                props.handler(newData)
+            })
+        }, 200);
     }
 
     return(

@@ -1,11 +1,19 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 
 const DeleteButton = (props) => {
-    const currentId = props.id
+    let currentId = props.id
 
-    const handleDelete = () => {
+    const handleDelete = (event) => {
+        event.preventDefault()
         axios.delete('http://178.128.196.163:3000/api/records/' + currentId)
+        setTimeout(() => {
+            axios.get('http://178.128.196.163:3000/api/records')
+            .then(res => {
+                let newData = res.data
+                props.handler(newData)
+            })
+        }, 200);
     }
 
     return (

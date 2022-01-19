@@ -17,12 +17,19 @@ const EditButton = (props) => {
         axios.post('http://178.128.196.163:3000/api/records/' + currentId, {
             data: {name, surname, telephone}
         })
-        handleClose()
+        handleClose();
+        setTimeout(() => {
+            axios.get('http://178.128.196.163:3000/api/records')
+            .then(res => {
+                let newData = res.data
+                props.handler(newData)
+            })
+        }, 200);
     }
 
     return (
         <div className="container">
-            <button type="button" className="btn btn-secondary" onClick={handleShow}>Изменить</button>
+            <button type="button" className="btn btn-secondary" onClick={handleShow}>Edit</button>
 
             <Modal 
                     className='modal-dialog'
