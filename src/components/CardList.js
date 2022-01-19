@@ -16,7 +16,6 @@ class CardList extends Component {
         axios.get('http://178.128.196.163:3000/api/records')
             .then(res => {
                 this.setState({data: res.data})
-                console.log(this.state.data)
             })
     }
 
